@@ -1,0 +1,92 @@
+package br.com.alura.screenmatch.modelo;
+
+import br.com.alura.screenmatch.calculos.Classificavel;
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
+import com.google.gson.annotations.SerializedName;
+
+public class Titulo implements Comparable<Titulo>{
+    private String nome;
+    private int anoDeLancamento;
+    private int duracaoEmMinutos;
+    private boolean incluidoNoPlano;
+    private double somaDasAvaliacoes;
+    private int totalDeAvaliacoes;
+
+    public Titulo(int anoDeLancamento, String nome) {
+        this.anoDeLancamento = anoDeLancamento;
+        this.nome = nome;
+    }
+
+    public Titulo(TituloOmdb tituloJson) {
+        this.nome = tituloJson.title();
+        if(tituloJson.year().length() > 4){
+            throw new ErroDeConversaoDeAnoException("Não consegui converter o ano " +
+                    "por que tem mais de 4 caracteres");
+        }
+        this.anoDeLancamento = Integer.valueOf(tituloJson.year());
+        this.duracaoEmMinutos = Integer.valueOf(tituloJson.runtime().substring(0,3));
+    }
+
+    public void exibeFichaTecnica() {
+        System.out.println("Nome do filme: " +nome);
+        System.out.println("Ano de lançamento: " +anoDeLancamento);
+        System.out.println("Duração em minutos: " +duracaoEmMinutos);
+        System.out.println("Incluído no plano: " +incluidoNoPlano);
+    }
+
+    public void avalia(double nota) {
+        somaDasAvaliacoes += nota;
+        totalDeAvaliacoes++;
+    }
+
+    public double pegaMedia() {
+        return somaDasAvaliacoes / totalDeAvaliacoes;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getAnoDeLancamento() {
+        return this.anoDeLancamento;
+    }
+
+    public void setAnoDeLancamento(int anoDeLancamento) {
+        this.anoDeLancamento = anoDeLancamento;
+    }
+
+    public boolean getIncluidoNoPlano() {
+        return this.incluidoNoPlano;
+    }
+
+    public void setIncluidoNoPlano(boolean incluidoNoPlano) {
+        this.incluidoNoPlano = incluidoNoPlano;
+    }
+
+    public int getDuracaoEmMinutos() {
+        return this.duracaoEmMinutos;
+    }
+
+    public void setDuracaoEmMinutos(int duracaoEmMinutos) {
+        this.duracaoEmMinutos = duracaoEmMinutos;
+    }
+
+    public int getTotalDeAvaliacoes() {
+        return this.totalDeAvaliacoes;
+    }
+
+    @Override
+    public int compareTo(Titulo outroTitulo) {
+        return this.getNome().compareTo(outroTitulo.getNome());
+
+    }
+
+    @Override
+    public String toString() {
+        return "\nnome: " + nome+ "\nAno de lançamento: "+ anoDeLancamento + "\nDuração em minutos: "+ duracaoEmMinutos;
+    }
+}
