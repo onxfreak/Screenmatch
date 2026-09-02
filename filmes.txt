@@ -1,3 +1,0 @@
-nome: Click
-Ano de lançamento: 2006
-Duração em minutos: 107
