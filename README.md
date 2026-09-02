@@ -37,14 +37,12 @@ Durante o desenvolvimento do projeto, foram trabalhados conceitos como:
 * Classes e objetos
 * Encapsulamento
 * Interfaces
-* Herança
-* Polimorfismo
 * Collections
 * Consumo de APIs
 * Requisições HTTP
 * Manipulação de JSON
 * Tratamento de exceções
-* Streams e operações sobre coleções
+
 
 ## 🔌 OMDb API
 
